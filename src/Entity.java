@@ -27,6 +27,7 @@ public class Entity {
 	public void draw() {
 		if (useShader)
 			ARBShaderObjects.glUseProgramObjectARB(program);
+		//Coloring the box
 		GL11.glLoadIdentity();
 		GL11.glColor3f(red, green, blue);
 		GL11.glBegin(GL11.GL_QUADS);
@@ -38,7 +39,7 @@ public class Entity {
 		if (useShader)
 			ARBShaderObjects.glUseProgramObjectARB(0);
 	}
-
+//Create shader for the object
 	public int createShader(String filename, int shaderType) throws Exception {
 		int shader = 0;
 		try {
@@ -120,25 +121,36 @@ public class Entity {
 	}
 
 	public boolean collide(Entity move) {
+		//Distance between middle of squares
 		float distX = Math.abs(x - move.x);
 		float distY = Math.abs(y - move.y);
+		//add halves of each one
 		float combX = (width + move.width) / 2;
 		float combY = (height + move.height) / 2;
+		//if the areasinterlap, than do stuff
 		if (combY > distY && combX > distX) {
+			//calculate how much you need to move things
 			float movX = combX - distX;
 			float movY = combY - distY;
+			.//if you need to move more on the Y side, move the x side
 			if (movX < movY) {
+				//if you have two platforms
 				if (id.equals("BOX") && move.id.equals("BOX")) {
+					//if the platform is on the right
 					if (x < move.x) {
+						//move it to the right of the box
 						move.x += movX;
+						//bounce it off the box
 						move.vx = -move.vx;
 					} else {
 						move.x -= movX;
 						move.vx = -move.vx;
 					}
+					//if a crate is bounced against the player
 				} else if (id.equals("PLAYER") && move.id.equals("CRATE")) {
 					if (x > move.x) {
 						move.x -= movX;
+						//crate velocity is equal to the movement
 						move.vx -= movX;
 					} else {
 						move.x += movX;
@@ -150,10 +162,12 @@ public class Entity {
 					} else {
 						move.x -= movX;
 					}
+					//Bounce off the walls
 					if (move.id.equals("BOX")) {
 						move.vx = -move.vx;
 					}
 				}
+				//Essentially reset all the datas
 				if (move.id.equals("CRATE")&&id.equals("WALL")){
 					move.vx=0;
 					move.vy=0;
