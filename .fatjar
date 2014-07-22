@@ -1,0 +1,14 @@
+#Fat Jar Configuration File
+#Tue Jul 15 16:33:03 PDT 2014
+onejar.license.required=true
+manifest.classpath=
+manifest.removesigners=true
+onejar.checkbox=false
+jarname=/Users/BashawS/Dropbox/Completed Projects/Slowfest_lib/SlowfestMac.jar
+manifest.mergeall=true
+manifest.mainclass=Main
+manifest.file=<createnew>
+jarname.isextern=false
+onejar.expand=
+excludes=
+includes=
