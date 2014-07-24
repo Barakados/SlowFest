@@ -132,7 +132,7 @@ public class Entity {
 			//calculate how much you need to move things
 			float movX = combX - distX;
 			float movY = combY - distY;
-			.//if you need to move more on the Y side, move the x side
+			//if you need to move more on the Y side, move the x side
 			if (movX < movY) {
 				//if you have two platforms
 				if (id.equals("BOX") && move.id.equals("BOX")) {
