@@ -50,6 +50,5 @@ public class Crate extends Entity {
 		vx*=Math.pow(.9,1/Level.speed());
 		x+=vx;
 		y+=vy;
-		
 	}
 }

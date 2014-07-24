@@ -211,7 +211,7 @@ public class Entity {
 						move.grounded = true;
 						if (move.id.equals("PLAYER") || move.id.equals("CRATE")) {
 							move.vy = 0;
-							move.vy=vy;
+							//move.vy=vy;
 						}
 						if (move.id.equals("BOX")) {
 							move.vy = -move.vy;

@@ -127,6 +127,16 @@ public class Level {
 			}
 			b.draw();
 		}
+		for (Button b:buttons.values()){
+			b.draw();
+			for (Crate c: crates.values()){
+				if (b.collide(c)||b.collide(player)){
+					b.active.active=true;
+				}else{
+					b.active.active=false;
+				}
+			}
+		}
 		for (Crate c : crates.values()) {
 			c.update();
 			for (Wall w : walls.values()) {
