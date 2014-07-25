@@ -1,10 +1,6 @@
-package objects;
-
-import big.Level;
-
 public class Crate extends Entity {
 	public Crate(float x, float y, float width, float height) {
-		draw("box");
+		super("box");
 		this.red=.5f;
 		this.green=.5f;
 		this.blue=.0f;
@@ -14,7 +10,6 @@ public class Crate extends Entity {
 		this.width = width;
 		this.height = height;
 	}
-
 	public void update() {
 		vy+=Player.ACCELERATION/Level.speed();
 		vx=(float) Math.max(Math.min(12, vx), -12);

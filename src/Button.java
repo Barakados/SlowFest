@@ -1,13 +1,9 @@
-package objects;
-
-import big.Level;
-
 public class Button extends Entity {
 	public Level level;
 	public String activate;
 	public Entity active=null;
 	public Button(float x, float y, float width, float height, String activate, Level level) {
-		draw("button");
+		super("button");
 		this.x=x;
 		this.y=y;
 		this.width=width;
@@ -25,5 +21,4 @@ public class Button extends Entity {
 		}
 		active.active=false;
 	}
-
 }

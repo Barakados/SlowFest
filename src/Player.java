@@ -1,5 +1,3 @@
-package objects;
-
 public class Player extends Entity {
 	public static double ACCELERATION = Math.PI / 65 + .4;
 
@@ -10,11 +8,10 @@ public class Player extends Entity {
 		vx *= .9;
 		x += vx;
 		y += vy;
-
 	}
 
 	public Player(float x, float y) {
-		draw("screen");
+		super("screen");
 		id = "PLAYER";
 		this.x = x;
 		this.y = y;

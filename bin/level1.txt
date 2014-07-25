@@ -1,9 +1,9 @@
 310 200
 5
--10 -10 10 610 WALL1
-590 -10 610 610 WALL2
--10 -10 610 10 WALL3
--10 590 610 610 WALL4
+0 0 10 600 WALL1
+590 0 600 600 WALL2
+0 0 600 10 WALL3
+0 590 600 600 WALL4
 300 270 350 280 START
 1
 200 190 250 200 .5 TOGROUND
@@ -12,9 +12,4 @@
 1
 400 400 450 450 TOGROUND YAY
 1
-SIGN 100 100 bigsign
-STORY
-BEGIN 3
-Well you've certainly gotten yourself into a jam this time!
-Quickly, you need to find the exit before things get....
-Oh goodness... Get out! Use WASD keys to move to that sign over there.
+SIGN 300 581 bigsign

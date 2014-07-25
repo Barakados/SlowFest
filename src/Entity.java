@@ -1,4 +1,3 @@
-package objects;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -8,39 +7,8 @@ import org.lwjgl.opengl.ARBFragmentShader;
 import org.lwjgl.opengl.ARBShaderObjects;
 import org.lwjgl.opengl.ARBVertexShader;
 import org.lwjgl.opengl.GL11;
-import big.Level;
 
 public class Entity {
-	public void draw(String name){
-		try {
-			vertShader = createShader(name+"/wall.vert",ARBVertexShader.GL_VERTEX_SHADER_ARB);
-			fragShader = createShader(name+"/wall.frag", ARBFragmentShader.GL_FRAGMENT_SHADER_ARB);
-		} catch (Exception e) {
-			e.printStackTrace();
-			return;
-		}
-		finally {
-			if (vertShader==0||fragShader==0){
-				return;
-			}
-		}
-		program = ARBShaderObjects.glCreateProgramObjectARB();
-		if (program==0)
-			return;
-		ARBShaderObjects.glAttachObjectARB(program, vertShader);
-		ARBShaderObjects.glAttachObjectARB(program, fragShader);
-		ARBShaderObjects.glLinkProgramARB(program);
-		if (ARBShaderObjects.glGetObjectParameteriARB(program, ARBShaderObjects.GL_OBJECT_LINK_STATUS_ARB)==GL11.GL_FALSE){
-			System.err.println(getLogInfo(program));
-			return;
-		}
-		ARBShaderObjects.glValidateProgramARB(program);
-		if (ARBShaderObjects.glGetObjectParameteriARB(program, ARBShaderObjects.GL_OBJECT_VALIDATE_STATUS_ARB)==GL11.GL_FALSE){
-			System.err.println(getLogInfo(program));
-			return;
-		}
-		useShader=true;
-	}
 	public String id = "";
 	public float vx = 0;
 	public float vy = 0;
@@ -53,15 +21,16 @@ public class Entity {
 	public float red = 0f;
 	public float green = 0f;
 	public float blue = 0f;
-	public boolean active=true;
+	public boolean active = true;
 	public boolean useShader;
 	public int vertShader = 0;
 	public int fragShader = 0;
 	public int program = 0;
+
 	public void draw() {
 		if (useShader)
 			ARBShaderObjects.glUseProgramObjectARB(program);
-		//Coloring the box
+		// Coloring the box
 		GL11.glLoadIdentity();
 		GL11.glColor3f(red, green, blue);
 		GL11.glBegin(GL11.GL_QUADS);
@@ -73,7 +42,8 @@ public class Entity {
 		if (useShader)
 			ARBShaderObjects.glUseProgramObjectARB(0);
 	}
-//Create shader for the object
+
+	// Create shader for the object
 	public int createShader(String filename, int shaderType) throws Exception {
 		int shader = 0;
 		try {
@@ -155,36 +125,36 @@ public class Entity {
 	}
 
 	public boolean collide(Entity move) {
-		//Distance between middle of squares
+		// Distance between middle of squares
 		float distX = Math.abs(x - move.x);
 		float distY = Math.abs(y - move.y);
-		//add halves of each one
+		// add halves of each one
 		float combX = (width + move.width) / 2;
 		float combY = (height + move.height) / 2;
-		//if the areasinterlap, than do stuff
+		// if the areasinterlap, than do stuff
 		if (combY > distY && combX > distX) {
-			//calculate how much you need to move things
+			// calculate how much you need to move things
 			float movX = combX - distX;
 			float movY = combY - distY;
-			//if you need to move more on the Y side, move the x side
+			// if you need to move more on the Y side, move the x side
 			if (movX < movY) {
-				//if you have two platforms
+				// if you have two platforms
 				if (id.equals("BOX") && move.id.equals("BOX")) {
-					//if the platform is on the right
+					// if the platform is on the right
 					if (x < move.x) {
-						//move it to the right of the box
+						// move it to the right of the box
 						move.x += movX;
-						//bounce it off the box
+						// bounce it off the box
 						move.vx = -move.vx;
 					} else {
 						move.x -= movX;
 						move.vx = -move.vx;
 					}
-					//if a crate is bounced against the player
+					// if a crate is bounced against the player
 				} else if (id.equals("PLAYER") && move.id.equals("CRATE")) {
 					if (x > move.x) {
 						move.x -= movX;
-						//crate velocity is equal to the movement
+						// crate velocity is equal to the movement
 						move.vx -= movX;
 					} else {
 						move.x += movX;
@@ -196,15 +166,15 @@ public class Entity {
 					} else {
 						move.x -= movX;
 					}
-					//Bounce off the walls
+					// Bounce off the walls
 					if (move.id.equals("BOX")) {
 						move.vx = -move.vx;
 					}
 				}
-				//Essentially reset all the datas
-				if (move.id.equals("CRATE")&&id.equals("WALL")){
-					move.vx=0;
-					move.vy=0;
+				// Essentially reset all the datas
+				if (move.id.equals("CRATE") && id.equals("WALL")) {
+					move.vx = 0;
+					move.vy = 0;
 					if (x > move.x) {
 						move.x -= movX;
 					} else {
@@ -233,19 +203,19 @@ public class Entity {
 					if (y > move.y) {
 						move.y -= movY;
 						move.grounded = true;
-						move.vx=(float) (vx/.9/Level.speed());
-						move.vy=0;
+						move.vx = (float) (vx / .9 / Level.speed());
+						move.vy = 0;
 					} else {
 						move.y += movY;
 					}
 				} else {
 					if (y > move.y) {
 						move.y -= movY;
-				
+
 						move.grounded = true;
 						if (move.id.equals("PLAYER") || move.id.equals("CRATE")) {
 							move.vy = 0;
-							//dxcmove.vy=vy;
+							// dxcmove.vy=vy;
 						}
 						if (move.id.equals("BOX")) {
 							move.vy = -move.vy;
@@ -261,6 +231,42 @@ public class Entity {
 			return true;
 		} else {
 			return false;
+		}
+	}
+
+	public Entity(String name) {
+		if (name.length()>0){
+		try {
+			vertShader = createShader("shaders/" + name + ".vert",
+					ARBVertexShader.GL_VERTEX_SHADER_ARB);
+			fragShader = createShader("shaders/" + name + ".frag",
+					ARBFragmentShader.GL_FRAGMENT_SHADER_ARB);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return;
+		} finally {
+			if (vertShader == 0 || fragShader == 0) {
+				return;
+			}
+		}
+		program = ARBShaderObjects.glCreateProgramObjectARB();
+		if (program == 0)
+			return;
+		ARBShaderObjects.glAttachObjectARB(program, vertShader);
+		ARBShaderObjects.glAttachObjectARB(program, fragShader);
+		ARBShaderObjects.glLinkProgramARB(program);
+		if (ARBShaderObjects.glGetObjectParameteriARB(program,
+				ARBShaderObjects.GL_OBJECT_LINK_STATUS_ARB) == GL11.GL_FALSE) {
+			System.err.println(getLogInfo(program));
+			return;
+		}
+		ARBShaderObjects.glValidateProgramARB(program);
+		if (ARBShaderObjects.glGetObjectParameteriARB(program,
+				ARBShaderObjects.GL_OBJECT_VALIDATE_STATUS_ARB) == GL11.GL_FALSE) {
+			System.err.println(getLogInfo(program));
+			return;
+		}
+		useShader = true;
 		}
 	}
 

@@ -3,3 +3,13 @@
 /objects/
 /big/
 /background/
+/Entity.class
+/Box.class
+/Button.class
+/Crate.class
+/Player.class
+/Wall.class
+/Sign.class
+/Level.class
+/Main.class
+/level1.txt

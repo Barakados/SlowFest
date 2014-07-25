@@ -1,14 +1,13 @@
-package big;
+
+
 import java.io.InputStream;
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 import java.util.*;
-import objects.*;
 import org.lwjgl.BufferUtils;
 import org.newdawn.slick.*;
 import org.newdawn.slick.opengl.TextureImpl;
 
-import background.Sign;
 
 public class Level {
 	public static AngelCodeFont fnt;
@@ -83,6 +82,7 @@ public class Level {
 		}
 		i = sc.nextInt();
 		while (i > 0) {
+			System.out.println("NO");
 			float tX = sc.nextFloat();
 			float tY = sc.nextFloat();
 			float bX = sc.nextFloat();
@@ -98,9 +98,10 @@ public class Level {
 			String type = sc.next();
 			float cx = sc.nextFloat();
 			float cy = sc.nextFloat();
-			String connect = sc.next();
 			String s = sc.next();
+			if (type.equals("SIGN")){
 			background.put(s,new Sign(cx,cy));
+			}
 			i--;
 		}
 		
@@ -114,6 +115,9 @@ public class Level {
 
 	public void update() {
 		player.update();
+		for (Entity e:background.values()){
+			e.draw();
+		}
 		for (Wall w : walls.values()) {
 			w.collide(player);
 			w.draw();

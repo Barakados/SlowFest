@@ -1,12 +1,9 @@
-package objects;
 
-import big.Level;
 
 public class Box extends Entity {
 	public double direction = 0;
-
 	public Box(float x, float y, float width, float height, double direction) {
-		draw("box");
+		super("box");
 		this.x = x;
 		id = "BOX";
 		this.y = y;

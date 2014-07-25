@@ -1,6 +1,3 @@
-package big;
-import objects.Player;
-
 import org.lwjgl.LWJGLException;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.Display;
