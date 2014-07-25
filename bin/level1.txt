@@ -11,3 +11,10 @@
 100 200 110 210 big
 1
 400 400 450 450 TOGROUND YAY
+1
+SIGN 100 100 bigsign
+STORY
+BEGIN 3
+Well you've certainly gotten yourself into a jam this time!
+Quickly, you need to find the exit before things get....
+Oh goodness... Get out! Use WASD keys to move to that sign over there.

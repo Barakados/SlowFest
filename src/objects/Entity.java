@@ -1,12 +1,46 @@
+package objects;
+
 import java.io.BufferedReader;
-import java.io.FileInputStream;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
+import org.lwjgl.opengl.ARBFragmentShader;
 import org.lwjgl.opengl.ARBShaderObjects;
+import org.lwjgl.opengl.ARBVertexShader;
 import org.lwjgl.opengl.GL11;
+import big.Level;
 
 public class Entity {
+	public void draw(String name){
+		try {
+			vertShader = createShader(name+"/wall.vert",ARBVertexShader.GL_VERTEX_SHADER_ARB);
+			fragShader = createShader(name+"/wall.frag", ARBFragmentShader.GL_FRAGMENT_SHADER_ARB);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return;
+		}
+		finally {
+			if (vertShader==0||fragShader==0){
+				return;
+			}
+		}
+		program = ARBShaderObjects.glCreateProgramObjectARB();
+		if (program==0)
+			return;
+		ARBShaderObjects.glAttachObjectARB(program, vertShader);
+		ARBShaderObjects.glAttachObjectARB(program, fragShader);
+		ARBShaderObjects.glLinkProgramARB(program);
+		if (ARBShaderObjects.glGetObjectParameteriARB(program, ARBShaderObjects.GL_OBJECT_LINK_STATUS_ARB)==GL11.GL_FALSE){
+			System.err.println(getLogInfo(program));
+			return;
+		}
+		ARBShaderObjects.glValidateProgramARB(program);
+		if (ARBShaderObjects.glGetObjectParameteriARB(program, ARBShaderObjects.GL_OBJECT_VALIDATE_STATUS_ARB)==GL11.GL_FALSE){
+			System.err.println(getLogInfo(program));
+			return;
+		}
+		useShader=true;
+	}
 	public String id = "";
 	public float vx = 0;
 	public float vy = 0;
@@ -211,7 +245,7 @@ public class Entity {
 						move.grounded = true;
 						if (move.id.equals("PLAYER") || move.id.equals("CRATE")) {
 							move.vy = 0;
-							//move.vy=vy;
+							//dxcmove.vy=vy;
 						}
 						if (move.id.equals("BOX")) {
 							move.vy = -move.vy;

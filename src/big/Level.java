@@ -1,18 +1,14 @@
+package big;
 import java.io.InputStream;
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Scanner;
-
+import java.util.*;
+import objects.*;
 import org.lwjgl.BufferUtils;
-import org.lwjgl.opengl.GL11;
-import org.newdawn.slick.AngelCodeFont;
-import org.newdawn.slick.Color;
-import org.newdawn.slick.Image;
-import org.newdawn.slick.SlickException;
+import org.newdawn.slick.*;
 import org.newdawn.slick.opengl.TextureImpl;
+
+import background.Sign;
 
 public class Level {
 	public static AngelCodeFont fnt;
@@ -97,8 +93,19 @@ public class Level {
 					.abs(tX - bX), Math.abs(tY - bY),connect,this));
 			i--;
 		}
+		i = sc.nextInt();
+		while (i > 0) {
+			String type = sc.next();
+			float cx = sc.nextFloat();
+			float cy = sc.nextFloat();
+			String connect = sc.next();
+			String s = sc.next();
+			background.put(s,new Sign(cx,cy));
+			i--;
+		}
+		
 	}
-
+	public Map<String,Entity> background = new HashMap<String,Entity>();
 	public Map<String,Wall> walls = new HashMap<String,Wall>();
 	public Map<String,Box> entities = new HashMap<String,Box>();
 	public Map<String,Crate> crates = new HashMap<String,Crate>();
