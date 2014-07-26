@@ -1,15 +1,26 @@
 310 200
-5
+7
 0 0 10 600 WALL1
 590 0 600 600 WALL2
 0 0 600 10 WALL3
-0 590 600 600 WALL4
+0 590 200 600 WALL4
+200 600 250 615 WALL5
+250 590 600 600 WALL6
 300 270 350 280 START
 1
 200 190 250 200 .5 TOGROUND
 1
-100 200 110 210 big
+300 10 310 20 big
 1
 400 400 450 450 TOGROUND YAY
 1
 SIGN 300 581 bigsign
+8
+Hey man! How are you so far?
+Ok now that we've establish a true bond of everlasting friendship...
+I need you to hold on to something, as the core is unstable.
+|ACTIVATE,big|
+Ok the core just dropped from the ceiling....
+This is bad... this is really bad!
+Ok... so now that we've established how bad the situation is...find an exit.
+How about that pink box?
